@@ -42,3 +42,14 @@ func Decode(buf []byte) (Record, int, error) {
 
 	return r, total, nil
 }
+
+// reads the total length fields from a header and returns a full record size
+func TotalSize(header []byte) (int, error) {
+	if len(header) < HeaderSize {
+		return 0, ErrShort
+	}
+
+	keyLen := int(binary.LittleEndian.Uint32(header[keyLenOffset:]))
+	valueLen := int(binary.LittleEndian.Uint32(header[valueLenOffset:]))
+	return HeaderSize + keyLen + valueLen, nil
+}
