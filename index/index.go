@@ -27,3 +27,15 @@ func (i *Index) Get(key string) (Entry, bool) {
 func (i *Index) Delete(key string) {
 	delete(i.m, key)
 }
+
+func (i *Index) Len() int {
+	return len(i.m)
+}
+
+func (i *Index) Range(fn func(key string, e Entry) bool) {
+	for k, e := range i.m {
+		if !fn(k, e) {
+			return
+		}
+	}
+}
