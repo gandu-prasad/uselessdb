@@ -17,14 +17,16 @@ const (
 	HeaderSize = flagOffset + flagSize // 17 (0-16)
 )
 
+type Flag byte
+
 const (
-	FlagValue     byte = 0 // key-value pair
-	FLagTombstone byte = 1 // delete marker; value will be empty
+	FlagValue     Flag = 0 // key-value pair
+	FlagTombstone Flag = 1 // delete marker; value will be empty
 )
 
 type Record struct {
 	TimeStamp uint32
-	Flag      byte
+	Flag      Flag
 	Key       []byte
 	Value     []byte
 }

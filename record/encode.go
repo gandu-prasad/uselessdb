@@ -15,7 +15,7 @@ func Encode(r Record) []byte {
 	binary.LittleEndian.PutUint32(buf[timeStampOffset:], r.TimeStamp)
 	binary.LittleEndian.PutUint32(buf[keyLenOffset:], uint32(len(r.Key)))
 	binary.LittleEndian.PutUint32(buf[valueLenOffset:], uint32(len(r.Value)))
-	buf[flagOffset] = r.Flag
+	buf[flagOffset] = byte(r.Flag)
 
 	copy(buf[HeaderSize:], r.Key)
 	copy(buf[HeaderSize+len(r.Key):], r.Value)

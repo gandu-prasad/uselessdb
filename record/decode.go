@@ -35,7 +35,7 @@ func Decode(buf []byte) (Record, int, error) {
 
 	r := Record{
 		TimeStamp: binary.LittleEndian.Uint32(buf[timeStampOffset:]),
-		Flag:      buf[flagOffset],
+		Flag:      Flag(buf[flagOffset]),
 		Key:       buf[HeaderSize : HeaderSize+keyLen],
 		Value:     buf[HeaderSize+keyLen : total],
 	}
